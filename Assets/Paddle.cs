@@ -6,7 +6,7 @@ public class Paddle : MonoBehaviour
 {
     public Transform paddle;
     private Vector2 direction;
-    private List<Transform> paddleSegments = new List<Transform>();
+    [SerializeField] List<Transform> paddleSegments = new List<Transform>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,19 +16,39 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.W))
+        if(this.gameObject.tag == "Player1")
         {
-            direction = Vector2.up;
-        }
+            if (Input.GetKey(KeyCode.W))
+            {
+                direction = Vector2.up;
+            }
 
-        else if(Input.GetKey(KeyCode.S))
-        {
-            direction = Vector2.down;
-        }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                direction = Vector2.down;
+            }
 
-        else
+            else
+            {
+                direction = Vector2.zero;
+            }
+        }
+        else if(this.gameObject.tag == "Player2")
         {
-            direction = Vector2.zero;
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                direction = Vector2.up;
+            }
+
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                direction = Vector2.down;
+            }
+
+            else
+            {
+                direction = Vector2.zero;
+            }
         }
     }
 
