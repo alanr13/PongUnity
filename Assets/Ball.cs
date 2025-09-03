@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    GameLogic logic;
     int rand;
     private int moveSpeedInstances = 0;
     Vector2 direction;
     public float moveSpeed;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,12 +23,13 @@ public class Ball : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * moveSpeed;
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<GameLogic>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        logic.AddScore();
     }
 
     void FixedUpdate()
@@ -45,7 +47,7 @@ public class Ball : MonoBehaviour
             if(moveSpeedInstances < 5)
             {
                 moveSpeedInstances++;
-                moveSpeed += 13.0f;
+                moveSpeed += 20.0f;
             }
             Debug.Log("Hit Paddle");
             direction = Vector2.Reflect(direction, collision.contacts[0].normal);
