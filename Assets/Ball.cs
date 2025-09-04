@@ -11,15 +11,7 @@ public class Ball : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rand = Random.Range(1, 3);
-        if (rand == 1)
-        {
-            direction = Vector3.right;
-        }
-        else if (rand == 2)
-        {
-            direction = Vector3.left;
-        }
+        ChooseDirection();
 
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * moveSpeed;
@@ -40,6 +32,24 @@ public class Ball : MonoBehaviour
         //}
     }
 
+    public void ResetBall()
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.transform.position = Vector2.zero;
+    }
+
+    void ChooseDirection()
+    {
+        rand = Random.Range(1, 3);
+        if (rand == 1)
+        {
+            direction = Vector3.right;
+        }
+        else if (rand == 2)
+        {
+            direction = Vector3.left;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "PaddleParts")

@@ -9,6 +9,7 @@ TagManager:
   - PaddleParts
   - Player1
   - Player2
+  - Logic
   layers:
   - Default
   - TransparentFX
