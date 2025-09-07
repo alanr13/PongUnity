@@ -19,23 +19,17 @@ public class Ball : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        logic.AddScore();
-    }
 
     void FixedUpdate()
     {
-        //for (int i = 5; i >= 0; i--)
-        //{
-        //    moveSpeed += 5.0f;
-        //}
+
     }
 
     public void ResetBall()
     {
         rb.linearVelocity = Vector2.zero;
         rb.transform.position = Vector2.zero;
+        ChooseDirection();
     }
 
     void ChooseDirection()
@@ -52,16 +46,31 @@ public class Ball : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "PaddleParts")
+        switch(collision.gameObject.tag)
         {
-            if(moveSpeedInstances < 5)
-            {
-                moveSpeedInstances++;
-                moveSpeed += 20.0f;
-            }
-            Debug.Log("Hit Paddle");
-            direction = Vector2.Reflect(direction, collision.contacts[0].normal);
-            rb.linearVelocity = direction * moveSpeed;
+            case "PaddleParts":
+                if (moveSpeedInstances < 5)
+                {
+                    moveSpeedInstances++;
+                    moveSpeed += 20.0f;
+                }
+                Debug.Log("Hit Paddle");
+                direction = Vector2.Reflect(direction, collision.contacts[0].normal);
+                rb.linearVelocity = direction * moveSpeed;
+                break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Detector_Left":
+                logic.AddScore(logic.player2Score);
+                break;
+            case "Detector_Right":
+                logic.AddScore(logic.player1Score);
+                break;
         }
     }
 }
