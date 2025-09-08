@@ -11,7 +11,7 @@ public class Ball : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ChooseDirection();
+        LaunchBall();
 
         rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * moveSpeed;
@@ -29,21 +29,20 @@ public class Ball : MonoBehaviour
     {
         rb.linearVelocity = Vector2.zero;
         rb.transform.position = Vector2.zero;
-        ChooseDirection();
+
+        moveSpeedInstances = 0;
+        Invoke("LaunchBall", 1.0f);
     }
 
-    void ChooseDirection()
+    void LaunchBall()
     {
-        rand = Random.Range(1, 3);
-        if (rand == 1)
-        {
-            direction = Vector3.right;
-        }
-        else if (rand == 2)
-        {
-            direction = Vector3.left;
-        }
+        float x = Random.Range(0, 2) == 0 ? -1 : 1;
+        float y = Random.Range(-0.75f, 0.75f);
+
+        direction = new Vector2(x, y).normalized;
+        rb.linearVelocity = direction * moveSpeed;
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         switch(collision.gameObject.tag)

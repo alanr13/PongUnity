@@ -10,14 +10,17 @@ TagManager:
   - Player1
   - Player2
   - Logic
+  - Detector_Left
+  - Detector_Right
+  - Detector
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Detector
   - Water
   - UI
-  - 
+  - Ball
   - 
   - 
   - 
