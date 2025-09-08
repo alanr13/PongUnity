@@ -6,7 +6,7 @@ public class Ball : MonoBehaviour
     int rand;
     private int moveSpeedInstances = 0;
     Vector2 direction;
-    public float moveSpeed;
+    private float moveSpeed = 25f;
     public Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,7 +31,8 @@ public class Ball : MonoBehaviour
         rb.transform.position = Vector2.zero;
 
         moveSpeedInstances = 0;
-        Invoke("LaunchBall", 1.0f);
+        moveSpeed = 25f;
+        Invoke("LaunchBall", 1f);
     }
 
     void LaunchBall()
@@ -45,14 +46,19 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        switch(collision.gameObject.tag)
+        switch(collision.gameObject.layer)
         {
-            case "PaddleParts":
+            case 8:
                 if (moveSpeedInstances < 5)
                 {
                     moveSpeedInstances++;
                     moveSpeed += 20.0f;
                 }
+                Debug.Log("Hit Paddle");
+                direction = Vector2.Reflect(direction, collision.contacts[0].normal);
+                rb.linearVelocity = direction * moveSpeed;
+                break;
+            case 7:
                 Debug.Log("Hit Paddle");
                 direction = Vector2.Reflect(direction, collision.contacts[0].normal);
                 rb.linearVelocity = direction * moveSpeed;
