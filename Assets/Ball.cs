@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -46,23 +47,33 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        switch(collision.gameObject.layer)
+        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
         {
-            case 8:
-                if (moveSpeedInstances < 5)
-                {
-                    moveSpeedInstances++;
-                    moveSpeed += 20.0f;
-                }
-                Debug.Log("Hit Paddle");
-                direction = Vector2.Reflect(direction, collision.contacts[0].normal);
-                rb.linearVelocity = direction * moveSpeed;
-                break;
-            case 7:
-                Debug.Log("Hit Paddle");
-                direction = Vector2.Reflect(direction, collision.contacts[0].normal);
-                rb.linearVelocity = direction * moveSpeed;
-                break;
+            if (moveSpeedInstances < 5)
+            {
+                moveSpeedInstances++;
+                moveSpeed += 20.0f;
+            }
+
+            Debug.Log("Move Speed: " + moveSpeed);
+            float paddleHeight = collision.collider.bounds.size.y;
+
+            // gdzie pi³ka trafi³a w paletkê (-0.5f dó³, 0 œrodek, 0.5f góra)
+            float y = (transform.position.y - collision.transform.position.y) / (paddleHeight / 2);
+
+            if (collision.gameObject.CompareTag("Player1"))
+                direction = new Vector2(1, y).normalized; // w prawo + k¹t
+            else
+                direction = new Vector2(-1, y).normalized; // w lewo + k¹t
+
+            rb.linearVelocity = direction * moveSpeed;
+        }
+
+        if (collision.gameObject.layer == 7)
+        {
+            Debug.Log("Hit Wall");
+            direction = Vector2.Reflect(direction, collision.contacts[0].normal);
+            rb.linearVelocity = direction * moveSpeed;
         }
     }
 

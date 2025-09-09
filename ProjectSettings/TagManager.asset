@@ -7,12 +7,12 @@ TagManager:
   - Ball
   - Paddle
   - PaddleParts
-  - Player1
-  - Player2
   - Logic
   - Detector_Left
   - Detector_Right
   - Detector
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX
@@ -24,8 +24,8 @@ TagManager:
   - OuterWall
   - Paddle
   - InnerWall
-  - 
-  - 
+  - InnerPaddlePart
+  - OuterPaddlePart
   - 
   - 
   - 

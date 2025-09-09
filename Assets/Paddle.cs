@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    public float moveSpeed;
+    private float moveSpeed = 50;
     Rigidbody2D rb;
-    public Transform paddle;
     private Vector2 direction;
-    [SerializeField] List<Transform> paddleSegments = new List<Transform>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
