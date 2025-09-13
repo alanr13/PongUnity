@@ -21,9 +21,9 @@ public class Ball : MonoBehaviour
 
     // Update is called once per frame
 
-    void FixedUpdate()
+    void Update()
     {
-
+        Debug.Log("Move Speed: " + moveSpeed);
     }
 
     public void ResetBall()
@@ -55,7 +55,6 @@ public class Ball : MonoBehaviour
                 moveSpeed += 20.0f;
             }
 
-            Debug.Log("Move Speed: " + moveSpeed);
             float paddleHeight = collision.collider.bounds.size.y;
 
             // gdzie pi³ka trafi³a w paletkê (-0.5f dó³, 0 œrodek, 0.5f góra)
